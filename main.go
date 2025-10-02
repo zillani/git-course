@@ -1,3 +1,7 @@
-import "fmt"
+package main
 
-fmt.Println("hello golang")
+import "logrus"
+
+func main(){
+  logrus.Info("hello golang")
+}
