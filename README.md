@@ -6,5 +6,5 @@
 ```bash
 go build -mod=vendor -o test
 
-./test
+./branch-2
 ```
