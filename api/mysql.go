@@ -1,25 +1,14 @@
 package main
 
 import (
-"database/sql"
-"fmt"
-"log"
-
-_ "github.com/go-sql-driver/mysql"
-
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/zillani/git-course/db_layer"
+	"log"
 )
 
 func main() {
-	dsn := "root:root@tcp(127.0.0.1:3306)/college"
-	db, err := sql.Open("mysql", dsn)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
-
-	if err := db.Ping(); err != nil {
-		log.Fatal("Failed to connect:", err)
-	}
+	db := db_layer.GetMysqlConnection()
 	rows, err := db.Query("SELECT id, name, branch FROM students")
 	if err != nil {
 		log.Fatal(err)
@@ -38,6 +27,6 @@ func main() {
 	if err := rows.Err(); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Connected to MySQL successfully!")
-}
+	defer db.Close()
 
+}
